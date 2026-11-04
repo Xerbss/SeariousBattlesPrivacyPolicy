@@ -76,6 +76,7 @@
     text-align: left;
     padding: 8px 10px;
     border: 1px solid var(--line);
+    vertical-align: top;
   }
   th {
     background: #f3efe6;
@@ -102,6 +103,54 @@
     font-size: 13px;
     color: var(--muted);
   }
+
+  th, td { overflow-wrap: break-word; }
+  @media (max-width: 480px) {
+    table { font-size: 13px; }
+    th, td { padding: 6px 7px; overflow-wrap: anywhere; hyphens: auto; }
+  }
+
+  /* Language switch */
+  .lang-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0 0;
+  }
+  .lang-btn {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .lang-btn[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .lang-select {
+    font: inherit;
+    font-size: 13px;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .lang-hint {
+    flex-basis: 100%;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 2px 0 0;
+  }
+  [data-lang] { display: none; }
+  [data-lang].active { display: block; }
 </style>
 </head>
 <body>
@@ -109,11 +158,50 @@
 
   <header>
     <p class="eyebrow">Piegeon</p>
-    <h1>Searious Battles — Privacy Policy</h1>
-    <p class="meta">Last updated: October 16, 2026</p>
+    <h1 id="title">Searious Battles — Privacy Policy</h1>
+    <p class="meta" id="updated">Last updated: November 4, 2026</p>
+
+    <div class="lang-bar" role="group" aria-label="Language">
+      <button class="lang-btn" type="button" data-set="en" aria-pressed="true">English</button>
+      <button class="lang-btn" type="button" data-set="pl" aria-pressed="false">Polski</button>
+      <select class="lang-select" id="otherLang" aria-label="Other languages">
+        <option value="">Other languages…</option>
+        <option value="bg">Български</option>
+        <option value="cs">Čeština</option>
+        <option value="da">Dansk</option>
+        <option value="de">Deutsch</option>
+        <option value="el">Ελληνικά</option>
+        <option value="es">Español</option>
+        <option value="et">Eesti</option>
+        <option value="fi">Suomi</option>
+        <option value="fr">Français</option>
+        <option value="ga">Gaeilge</option>
+        <option value="hr">Hrvatski</option>
+        <option value="hu">Magyar</option>
+        <option value="is">Íslenska</option>
+        <option value="it">Italiano</option>
+        <option value="lt">Lietuvių</option>
+        <option value="lv">Latviešu</option>
+        <option value="mt">Malti</option>
+        <option value="nl">Nederlands</option>
+        <option value="no">Norsk</option>
+        <option value="pt">Português</option>
+        <option value="ro">Română</option>
+        <option value="sk">Slovenčina</option>
+        <option value="sl">Slovenščina</option>
+        <option value="sv">Svenska</option>
+        <option value="uk">Українська</option>
+        <option value="tl">Filipino</option>
+        <option value="ja">日本語</option>
+      </select>
+      <p class="lang-hint" id="langHint">Other languages open an automatic Google translation, for convenience only. The English and Polish versions are the official ones.</p>
+    </div>
   </header>
 
-  <p>This Privacy Policy explains how Piegeon ("we," "us," or "our") collects, uses, and shares information when you use the Searious Battles mobile application (the "App"). By using the App, you agree to the practices described below.</p>
+  <!-- ===================== ENGLISH ===================== -->
+  <div data-lang="en" lang="en" class="active">
+
+  <p>This Privacy Policy explains how Piegeon ("we," "us," or "our") collects, uses, and shares information when you use the Searious Battles mobile application (the "App"), and what choices and rights you have. It applies only to the App; our <a href="https://piegeon.de/TermsOfService">Terms of Service</a> are a separate document.</p>
 
   <h2>1. Information We Collect</h2>
 
@@ -126,7 +214,7 @@
   <p>Where the law requires it, the App shows Google's consent message (Google User Messaging Platform) after the age screen and before any ads are requested. There you can accept, reject, or manage how our ad partners may use your data. You can change your choices at any time with the "Privacy options" button in the App's Settings menu; this button is shown wherever such a choice is legally required.</p>
 
   <h3>Advertising &amp; Diagnostic Data</h3>
-  <p>The App shows banner ads on its menu screens, occasional full-screen ads between levels, and optional rewarded ads that you can choose to watch for an in-game reward. Ads are delivered through Google AdMob mediation. For each ad, AdMob runs a real-time auction (bidding) among the following ad networks:</p>
+  <p>The App shows banner ads on its menu screens, occasional full-screen ads between levels, and optional rewarded ads that you can choose to watch for an in-game reward. Rewarded ads are always optional: they only play when you tap a button that offers a reward, and skipping one simply means no reward. Ads are delivered through Google AdMob mediation. For each ad, AdMob runs a real-time auction (bidding) among the following ad networks:</p>
   <ul>
     <li>Google AdMob</li>
     <li>Unity Ads</li>
@@ -138,55 +226,16 @@
   </ul>
   <p>To serve and measure ads, and to keep the App stable, these SDKs automatically collect the data described below:</p>
   <table>
-    <tr>
-      <th>Data type</th>
-      <th>Collected</th>
-      <th>Shared with third parties</th>
-      <th>Purpose</th>
-    </tr>
-    <tr>
-      <td>Device or other IDs (e.g. advertising ID)</td>
-      <td>Yes, for players 13 and over only — never collected for players under 13 (see Section 4)</td>
-      <td>Yes</td>
-      <td>Advertising or marketing</td>
-    </tr>
-    <tr>
-      <td>App interactions</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Advertising or marketing</td>
-    </tr>
-    <tr>
-      <td>Other actions</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Advertising or marketing</td>
-    </tr>
-    <tr>
-      <td>Other app performance data (diagnostics)</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Analytics</td>
-    </tr>
-    <tr>
-      <td>Crash logs</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>App functionality (identifying and fixing bugs)</td>
-    </tr>
-    <tr>
-      <td>Approximate location (derived from IP)</td>
-      <td>Yes, for players 13 and over only</td>
-      <td>Yes</td>
-      <td>Advertising or marketing</td>
-    </tr>
-    <tr>
-      <td>Purchase history (in-app purchases)</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>App functionality (delivering what you bought)</td>
-    </tr>
+    <tr><th>Data type</th><th>Collected</th><th>Shared with third parties</th><th>Purpose</th></tr>
+    <tr><td>Device or other IDs (e.g. advertising ID)</td><td>Yes, for players 13 and over only — never collected for players under 13 (see Section 4)</td><td>Yes</td><td>Advertising or marketing</td></tr>
+    <tr><td>App interactions</td><td>Yes</td><td>Yes</td><td>Advertising or marketing</td></tr>
+    <tr><td>Other actions</td><td>Yes</td><td>Yes</td><td>Advertising or marketing</td></tr>
+    <tr><td>Other app performance data (diagnostics)</td><td>Yes</td><td>Yes</td><td>Analytics</td></tr>
+    <tr><td>Crash logs</td><td>Yes</td><td>No</td><td>App functionality (identifying and fixing bugs)</td></tr>
+    <tr><td>Approximate location (derived from IP)</td><td>Yes, for players 13 and over only</td><td>Yes</td><td>Advertising or marketing</td></tr>
+    <tr><td>Purchase history (in-app purchases)</td><td>Yes</td><td>No</td><td>App functionality (delivering what you bought)</td></tr>
   </table>
+  <p>Crash logs are collected through Google Play's built-in crash reporting (Android vitals), which Google gathers from players who have allowed usage and diagnostics sharing on their device, and are used only to find and fix bugs.</p>
   <p>Advertising data is collected and processed by our ad partners according to their own privacy policies, not by us directly. You can review their practices here:</p>
   <ul>
     <li>Google AdMob — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
@@ -197,19 +246,19 @@
     <li>DT Exchange (Digital Turbine) — <a href="https://www.digitalturbine.com/legal/privacy-policy" target="_blank" rel="noopener">digitalturbine.com/legal/privacy-policy</a></li>
     <li>Mintegral — <a href="https://www.mintegral.com/en/privacy" target="_blank" rel="noopener">mintegral.com/en/privacy</a></li>
   </ul>
-  <p>None of this data is processed ephemerally — it may be retained by these providers for as long as needed to serve its purpose. Collection is required for the App's advertising and stability functions and cannot be individually disabled within the App, though players 13 and over can reset or limit their device's advertising identifier through their device's system settings, and players in regions with a consent requirement can change their choices with the "Privacy options" button described above.</p>
+  <p>None of this data is processed ephemerally — it may be retained by these providers for as long as needed to serve its purpose. Collection is required for the App's advertising and stability functions and cannot be individually disabled within the App, though players 13 and over can reset or delete their device's advertising identifier through their device's system settings, and players in regions with a consent requirement can change their choices with the "Privacy options" button in the App's Settings menu.</p>
 
   <h3>In-App Purchases</h3>
   <p>The App offers optional in-app purchases: "Remove Ads" (removes banner and full-screen ads; optional rewarded ads stay available if you want them); in-game gold in three sizes — "Gold Pouch" (2,000 gold), "Gold Chest" (7,500 gold) and "Treasure Hoard" (16,000 gold); and the "Boom Crate" (6 rockets + 6 grenades), which are one-time-use power-ups. All payments are handled by Google Play Billing. We never see or store your payment details (such as card numbers) — Google processes the payment and tells the App only which item was bought, so it can be delivered. The App stores the result locally on your device (whether ads were removed, your gold balance, and how many power-ups you have) and, if you use cloud save, as part of your save file (see Section 2). Purchases are subject to <a href="https://payments.google.com/payments/apis-secure/u/0/get_legal_document?ldo=0&amp;ldt=privacynotice" target="_blank" rel="noopener">Google Payments' privacy notice</a>. Parents can require a password or other authentication for purchases in the Google Play Store settings.</p>
 
   <h3>Game Progress &amp; Cloud Save</h3>
-  <p>On Android, the App uses Google Play Games Services to let you sign in with your Google account and sync your game progress (level completion, stars, power-ups, purchases, settings) across devices. If you don't sign in, or while offline, progress is saved locally on your device using standard storage mechanisms. See Section 2 below for what this sign-in accesses.</p>
+  <p>On Android, the App uses Google Play Games Services to let you sign in with your Google account and to sync your game progress (level completion, stars, power-ups, purchases, settings) across devices. If you aren't signed in, or while offline, progress is saved locally on your device using standard storage mechanisms. See Section 2 below for what this sign-in accesses.</p>
 
   <h3>Reviews &amp; Updates</h3>
-  <p>The App may occasionally show Google Play's built-in "rate this app" window, and Google Play's in-app update prompt when a new version is available. Both are provided and run entirely by Google Play. The App does not learn whether you left a review or what you wrote, and no data from these windows is sent to us.</p>
+  <p>The App may occasionally show Google Play's built-in "rate this app" window, and Google Play's in-app update prompt when a new version is available. Both are provided and run entirely by Google Play. The App does not learn whether you left a review or what you wrote, no data from these windows is sent to us, and the App works the same whatever you choose.</p>
 
   <h3>Information We Don't Collect</h3>
-  <p>We do not require account creation to play the App (Google sign-in for cloud save is optional — see Section 2). The App does not collect your name, email address, or other directly identifying information beyond what Google Play Games Services provides for sign-in.</p>
+  <p>We do not require account creation to play the App (Google sign-in for cloud save is optional — see Section 2). The App does not collect your name, email address, or other directly identifying information beyond what Google Play Games Services provides for sign-in, and beyond what Google Play Billing requires to process purchases (which we never see directly).</p>
 
   <h2>2. Google User Data</h2>
   <p>On Android, the App uses <strong>Google Play Games Services Sign-In</strong> so you can save your progress to the cloud and sync it across devices. This is optional — you can play the App fully without signing in, in which case no Google Account data is accessed and progress is saved locally only. If you do sign in, the section below describes exactly what happens, in the specific terms Google requests for API/OAuth review.</p>
@@ -218,16 +267,16 @@
     <p style="margin:0 0 8px;"><strong>Data Usage:</strong> This data is used solely to identify your save file and sync your game progress (level completion, stars, power-ups, purchases, settings) across your devices via Google's Saved Games API.</p>
     <p style="margin:0 0 8px;"><strong>Data Sharing:</strong> We do not share this data with any third party, including our advertising partners. It is only exchanged with Google as necessary to operate Play Games Services sign-in and cloud save.</p>
     <p style="margin:0 0 8px;"><strong>Data Storage &amp; Protection:</strong> Your save data and Play Games profile information are stored on Google's infrastructure (Play Games Services / Saved Games API), not on our own servers. All data is encrypted in transit using TLS.</p>
-    <p style="margin:0;"><strong>Data Retention &amp; Deletion:</strong> This data is retained for as long as your Google account remains linked to the App. You can disconnect the App or delete your Play Games data at any time in the Google Play Games settings or your Google Account settings (<a href="https://myaccount.google.com" target="_blank" rel="noopener">myaccount.google.com</a>). You can also contact us at the email in Section 10 to request deletion.</p>
+    <p style="margin:0;"><strong>Data Retention &amp; Deletion:</strong> This data is retained for as long as your Google account remains linked to the App. You can disconnect the App or delete its Play Games data at any time in the Google Play Games app or your Google Account settings (<a href="https://myaccount.google.com" target="_blank" rel="noopener">myaccount.google.com</a>). You can also contact us at the email in Section 11 to request deletion.</p>
   </div>
   <p>If a future update adds new Google API scopes (for example, leaderboards or achievements), we will update this section and, where required, prompt you for consent before the change takes effect.</p>
 
   <h2>3. How We Use Information &amp; Legal Basis</h2>
-  <p>Any data described above is used solely to display and measure advertising, to deliver in-app purchases, to save and sync your game progress, and to diagnose and fix technical issues. We do not sell your personal information.</p>
-  <p>Where GDPR applies (EEA/UK users), we and our ad partners rely on the following legal bases:</p>
+  <p>Any data described above is used solely to display and measure advertising, to deliver in-app purchases, to save and sync your game progress and to diagnose and fix technical issues. We do not sell your personal information for money. For how ad-related data counts under US state laws, see Section 8.</p>
+  <p>Where the GDPR applies (EEA/UK users), we and our ad partners rely on the following legal bases:</p>
   <ul>
-    <li><strong>Consent</strong> (Art. 6(1)(a) GDPR) — for personalized/targeted advertising and any non-essential tracking identifiers. Advertising consent is collected through the consent message described in Section 1 and applies only to players 13 and over.</li>
-    <li><strong>Performance of a contract</strong> (Art. 6(1)(b) GDPR) — for delivering in-app purchases you make, and for cloud save if you choose to sign in.</li>
+    <li><strong>Consent</strong> (Art. 6(1)(a) GDPR) — for personalized/targeted advertising and any non-essential tracking identifiers. Advertising consent is collected through the consent message described in Section 1 and applies only to players 13 and over. You can withdraw consent at any time (see Section 7).</li>
+    <li><strong>Performance of a contract</strong> (Art. 6(1)(b) GDPR) — for delivering in-app purchases you make and for cloud save if you choose to sign in.</li>
     <li><strong>Legitimate interests</strong> (Art. 6(1)(f) GDPR) — for non-personalized (contextual) advertising needed to keep the App free, and for crash/diagnostic logs needed to keep the App functioning correctly.</li>
     <li><strong>Legal obligation</strong> (Art. 6(1)(c) GDPR) — for the age screen described in Section 1, which exists to comply with COPPA and Google Play's Families policy. This processing isn't optional or consent-based, since it's how we determine and apply the legally required child-safe ad experience.</li>
   </ul>
@@ -239,10 +288,10 @@
     <li><strong>If you're under 13</strong> (or if age couldn't be determined): the App tags every ad request as child-directed and limits ads to content rated for general audiences (G). This disables personalized advertising, remarketing, and interest-based ads, and prevents your device's advertising ID from being used for advertising. This signal is set through the Google Mobile Ads SDK (AdMob), which passes it to every mediated ad network. Child sessions only use ad units whose auctions include Google Play Families Self-Certified ad networks (Google AdMob, Unity Ads, ironSource, InMobi, Liftoff Monetize and DT Exchange); Mintegral, which is not self-certified, never receives ad requests from child sessions.</li>
     <li><strong>If you're 13 or over</strong>: standard (non-child-directed) ads may be shown, as described in Section 1.</li>
   </ul>
-  <p>We do not knowingly collect personal information from children under 13 beyond the minimal, non-identifying data described in Section 1 (device/advertising identifiers are never collected for child sessions; diagnostic and crash data is not personal or directly identifying). In-app purchases always go through Google Play, where parents can require authentication for every purchase. If you are a parent or guardian and believe your child has provided us with personal information beyond what's described here, please contact us using the details in Section 10 and we will address it.</p>
+  <p>We do not knowingly collect personal information from children under 13 beyond the minimal, non-identifying data described in Section 1 (device/advertising identifiers are never collected for child sessions; diagnostic and crash data is not personal or directly identifying). In-app purchases always go through Google Play, where parents can require authentication for every purchase. If you are a parent or guardian and believe your child has provided us with personal information beyond what's described here, please contact us using the details in Section 11 and we will delete it.</p>
 
   <h2>5. Data Retention</h2>
-  <p>We do not maintain a personal user data profile on our own servers — account-linked data (Play Games profile and cloud save) lives on Google's infrastructure, as described in Section 2. The only data related to the age screen that's ever stored is two true/false flags saved locally on your device (whether the screen was completed, and whether the session is treated as a child's); your actual birth date is discarded immediately after that calculation and is never transmitted anywhere. Your advertising consent choices (where applicable), your purchases (whether ads were removed, gold balance, power-up counts) and your game progress are also stored locally on your device. Advertising identifiers, app interaction data, and diagnostic data are retained by our ad partners listed in Section 1 according to their own retention policies. Local data stored on your device, including the age-screen flags and consent choices, can be cleared at any time by uninstalling the App or clearing the App's data via your device settings — doing so will show the age screen again on next launch. Purchases of "Remove Ads" are tied to your Google Play account by Google and can be restored by Google Play after reinstalling.</p>
+  <p>We do not maintain a personal user data profile on our own servers — account-linked data (Play Games profile and cloud save) lives on Google's infrastructure, as described in Section 2, and purchase records live with Google Play Billing. The only data related to the age screen that's ever stored is two true/false flags saved locally on your device (whether the screen was completed, and whether the session is treated as a child's); your actual birth date is discarded immediately after that calculation and is never transmitted anywhere. Your advertising consent choices (where applicable), your purchases (whether ads were removed, your gold balance, and how many power-ups you have) and your game progress are also stored locally on your device. Advertising identifiers, app interaction data, and diagnostic data are retained by our ad partners listed in Section 1 according to their own retention policies. Local data stored on your device, including the age-screen flags and consent choices, can be cleared at any time by uninstalling the App or clearing the App's data via your device settings — doing so will show the age screen again on next launch. Purchases are tied to your Google Play account by Google and can be restored by Google Play after reinstalling.</p>
 
   <h2>6. Data Security</h2>
   <p>All data collected by the App and its third-party SDKs is encrypted in transit using industry-standard protocols (TLS). We take reasonable measures to protect the App and the limited data it processes, but no method of electronic processing or storage is 100% secure, and we cannot guarantee absolute security.</p>
@@ -256,25 +305,224 @@
     <li><strong>Restriction</strong> — request that we limit how your data is processed.</li>
     <li><strong>Objection</strong> — object to processing based on legitimate interests, including ad-related processing.</li>
     <li><strong>Data portability</strong> — request your data in a portable format, where technically feasible.</li>
-    <li><strong>Withdraw consent</strong> — where processing is based on consent (e.g. personalized advertising), you may withdraw it at any time without affecting the lawfulness of processing carried out before withdrawal: change your advertising choices with the "Privacy options" button in the App's Settings menu, and/or reset or limit your advertising identifier.</li>
+    <li><strong>Withdraw consent</strong> — where processing is based on consent (e.g. personalized advertising), you may withdraw it at any time without affecting the lawfulness of processing carried out before withdrawal: change your advertising choices with the "Privacy options" button in the App's Settings menu and/or reset or delete your device's advertising identifier.</li>
   </ul>
-  <p>Since most ad-related and diagnostic data is collected directly by our ad partners, requests about that data are often best directed to them via their own privacy tools (linked in Section 1), but you can also contact us at the details in Section 10 and we will assist where we can.</p>
+  <h3>How to make a request</h3>
+  <p>Email us at the address in Section 11 and tell us which right you want to use. We will reply within one month of receiving your request; if a request is especially complex, we may extend this by up to two more months and will tell you why. Requests are free of charge. Because we don't run user accounts, we may ask for your device's advertising ID (shown in your device's Google or ads settings) so we and our ad partners can find data linked to your device — we use it only to handle your request.</p>
+  <p>Since most ad-related and diagnostic data is collected directly by our ad partners, and purchase data is handled directly by Google Play Billing, requests about that data can also be sent to them directly via their own privacy tools (linked in Section 1), and we will help pass requests on where we can.</p>
   <p>You also have the right to lodge a complaint with a data protection supervisory authority. If you are in Poland, this is the Urząd Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, <a href="https://uodo.gov.pl" target="_blank" rel="noopener">uodo.gov.pl</a>. If you are elsewhere in the EEA/UK, you may contact your local supervisory authority instead.</p>
 
-  <h2>8. International Data Transfers</h2>
-  <p>Piegeon is based in Poland (EU). Google and our advertising and diagnostic partners (Unity/ironSource, InMobi, Liftoff, Digital Turbine and Mintegral) may process data in countries outside the EEA, including the United States, using appropriate safeguards as described in their own privacy policies.</p>
+  <h2>8. US State Privacy Rights</h2>
+  <p>If you live in a US state with a consumer privacy law (such as California, Colorado, Connecticut, Virginia, Texas or others), this section applies to you in addition to the rest of this policy.</p>
+  <ul>
+    <li><strong>What we collect and why:</strong> the categories of data, their sources (your device and the App) and purposes are listed in Sections 1 and 3. We do not collect sensitive personal information as defined by these laws (your birth date never leaves your device).</li>
+    <li><strong>Selling and sharing:</strong> we do not sell personal information for money. However, for players 13 and over, our ad partners may use device identifiers, app interaction data and approximate location to show personalized ads, which some state laws treat as "sharing" for cross-context behavioral advertising or "targeted advertising." We never do this for players under 13 (see Section 4), and we do not knowingly sell or share the personal information of anyone under 16.</li>
+    <li><strong>How to opt out:</strong> use the "Privacy options" button in the App's Settings menu (where shown), and/or reset or delete your advertising ID or turn on "opt out of ads personalization" in your device settings. We also honor opt-out requests sent by email to the address in Section 11.</li>
+    <li><strong>Your rights:</strong> depending on your state, you can ask to know or access the personal information collected about you, to correct or delete it, and to opt out of sale, sharing or targeted advertising. You can use an authorized agent to make a request. To make a request, email us at the address in Section 11; we may ask for your device's advertising ID to verify and fulfil it. If we deny a request, you can appeal by replying to our answer. We will not discriminate against you for using these rights.</li>
+  </ul>
 
-  <h2>9. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time, for example as the App's features change. We'll update the "Last updated" date above when we do. If a future change means the App begins accessing new or additional Google user data or scopes beyond what's described in Section 2, we will update Section 2 accordingly and, where required, prompt users for consent before the change takes effect. Continued use of the App after changes take effect means you accept the revised policy.</p>
+  <h2>9. International Data Transfers</h2>
+  <p>Piegeon is based in Poland (EU). Google and our advertising and diagnostic partners (Unity/ironSource, InMobi, Liftoff, Digital Turbine and Mintegral) may process data in countries outside the EEA, including the United States, India (InMobi) and China (Mintegral). Where data leaves the EEA or UK, these partners protect it with safeguards recognized under the GDPR — the European Commission's Standard Contractual Clauses and, for US companies certified under it, the EU–U.S. Data Privacy Framework — as described in their own privacy policies (linked in Section 1). You can ask us for more information about these safeguards using the details in Section 11.</p>
 
-  <h2>10. Contact Us</h2>
-  <p>If you have questions about this Privacy Policy or how the App handles data, contact us at:</p>
+  <h2>10. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time, for example as the App's features change. We'll update the "Last updated" date above when we do, and for important changes we will also let you know in the App or on its Google Play page. If a future change means the App begins accessing new or additional Google user data or scopes beyond what's described in Section 2, we will update Section 2 accordingly and, where required, prompt users for consent before the change takes effect.</p>
+
+  <h2>11. Contact Us</h2>
+  <p>If you have questions about this Privacy Policy, want to use any of your rights, or want to report a concern about how the App handles data, contact us at:</p>
   <p><strong>Email:</strong> <a href="mailto:diddyklein69@gmail.com">diddyklein69@gmail.com</a></p>
 
   <footer>
-    Searious Battles is developed by Piegeon. This policy applies only to the Searious Battles app.
+    Searious Battles is developed by Piegeon. This policy applies only to the Searious Battles app. The English and Polish versions are the official ones.
   </footer>
 
+  </div>
+
+  <!-- ===================== POLSKI ===================== -->
+  <div data-lang="pl" lang="pl">
+
+  <p>Niniejsza Polityka prywatności wyjaśnia, w jaki sposób Piegeon („my”, „nas”, „nasz”) zbiera, wykorzystuje i udostępnia informacje, gdy korzystasz z aplikacji mobilnej Searious Battles (dalej „Aplikacja”), oraz jakie masz wybory i prawa. Dotyczy wyłącznie Aplikacji; nasz <a href="https://piegeon.de/TermsOfService">Regulamin</a> jest osobnym dokumentem.</p>
+
+  <h2>1. Jakie informacje zbieramy</h2>
+
+  <h3>Weryfikacja wieku</h3>
+  <p>Przy pierwszym uruchomieniu Aplikacja prosi o podanie daty urodzenia (miesiąc, dzień, rok) na neutralnym ekranie — takim samym, z takim samym tekstem, dla każdego gracza. Nic na tym ekranie nie sugeruje, że jakakolwiek odpowiedź coś odblokowuje.</p>
+  <div class="note">Data urodzenia jest używana jednorazowo, lokalnie na Twoim urządzeniu, do obliczenia, czy masz mniej niż 13 lat. Sama data urodzenia nigdy nie jest nigdzie zapisywana — lokalnie na urządzeniu zapisywany jest tylko wynik tego obliczenia (znacznik prawda/fałsz) oraz znacznik informujący, że ekran został ukończony. Powracający gracze nie są pytani ponownie. Jeśli z jakiegokolwiek powodu sprawdzenie nie może zostać ukończone, Aplikacja na potrzeby reklam traktuje sesję jak sesję dziecka — nigdy domyślnie nie zakłada, że masz więcej niż 13 lat.</div>
+  <p>Ten znacznik decyduje o tym, jakie reklamy widzisz, zgodnie z opisem w Rozdziale 4 (Prywatność dzieci). Żadne reklamy nie są pobierane ani wyświetlane, dopóki ten ekran nie zostanie ukończony.</p>
+
+  <h3>Zgoda na reklamy (EOG, Wielka Brytania, Szwajcaria i niektóre stany USA)</h3>
+  <p>Tam, gdzie wymaga tego prawo, po ekranie wieku i przed pobraniem jakichkolwiek reklam Aplikacja wyświetla komunikat zgody Google (Google User Messaging Platform). Możesz w nim zaakceptować, odrzucić lub dostosować sposób, w jaki nasi partnerzy reklamowi mogą korzystać z Twoich danych. Swoje wybory możesz zmienić w każdej chwili za pomocą przycisku: przycisk „Privacy options” w menu Settings (Ustawienia) aplikacji; przycisk jest widoczny wszędzie tam, gdzie prawo wymaga takiego wyboru.</p>
+
+  <h3>Dane reklamowe i diagnostyczne</h3>
+  <p>Aplikacja wyświetla banery reklamowe na ekranach menu, okazjonalne reklamy pełnoekranowe między poziomami oraz opcjonalne reklamy z nagrodą, które możesz obejrzeć w zamian za nagrodę w grze. Reklamy z nagrodą są zawsze opcjonalne: odtwarzają się tylko po dotknięciu przycisku oferującego nagrodę, a pominięcie reklamy oznacza po prostu brak nagrody. Reklamy są dostarczane za pośrednictwem mediacji Google AdMob. Dla każdej reklamy AdMob przeprowadza aukcję w czasie rzeczywistym (bidding) pomiędzy następującymi sieciami reklamowymi:</p>
+  <ul>
+    <li>Google AdMob</li>
+    <li>Unity Ads</li>
+    <li>ironSource Ads (część Unity)</li>
+    <li>InMobi</li>
+    <li>Liftoff Monetize (dawniej Vungle)</li>
+    <li>DT Exchange (Digital Turbine)</li>
+    <li>Mintegral — tylko dla graczy w wieku 13 lat i starszych; nigdy nie otrzymuje zapytań o reklamy z sesji dzieci (zob. Rozdział 4)</li>
+  </ul>
+  <p>Aby wyświetlać i mierzyć reklamy oraz zapewnić stabilne działanie Aplikacji, te pakiety SDK automatycznie zbierają opisane poniżej dane:</p>
+  <table>
+    <tr><th>Rodzaj danych</th><th>Zbierane</th><th>Udostępniane podmiotom trzecim</th><th>Cel</th></tr>
+    <tr><td>Identyfikatory urządzenia lub inne (np. identyfikator reklamowy)</td><td>Tak, tylko dla graczy w wieku 13 lat i starszych — nigdy dla graczy poniżej 13 lat (zob. Rozdział 4)</td><td>Tak</td><td>Reklama lub marketing</td></tr>
+    <tr><td>Interakcje z aplikacją</td><td>Tak</td><td>Tak</td><td>Reklama lub marketing</td></tr>
+    <tr><td>Inne działania</td><td>Tak</td><td>Tak</td><td>Reklama lub marketing</td></tr>
+    <tr><td>Inne dane o wydajności aplikacji (diagnostyka)</td><td>Tak</td><td>Tak</td><td>Analityka</td></tr>
+    <tr><td>Dzienniki awarii</td><td>Tak</td><td>Nie</td><td>Działanie aplikacji (wykrywanie i naprawa błędów)</td></tr>
+    <tr><td>Przybliżona lokalizacja (na podstawie adresu IP)</td><td>Tak, tylko dla graczy w wieku 13 lat i starszych</td><td>Tak</td><td>Reklama lub marketing</td></tr>
+    <tr><td>Historia zakupów (zakupy w aplikacji)</td><td>Tak</td><td>Nie</td><td>Działanie aplikacji (dostarczenie zakupionych przedmiotów)</td></tr>
+  </table>
+  <p>Dzienniki awarii są zbierane za pomocą wbudowanego w Google Play raportowania awarii (Android vitals), które Google zbiera od graczy, którzy zezwolili na udostępnianie danych o użytkowaniu i diagnostyce na swoim urządzeniu, i są wykorzystywane wyłącznie do wykrywania i naprawy błędów.</p>
+  <p>Dane reklamowe są zbierane i przetwarzane przez naszych partnerów reklamowych zgodnie z ich własnymi politykami prywatności, a nie bezpośrednio przez nas. Ich zasady znajdziesz tutaj:</p>
+  <ul>
+    <li>Google AdMob — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+    <li>Unity Ads — <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy" target="_blank" rel="noopener">unity.com/legal/game-player-and-app-user-privacy-policy</a></li>
+    <li>ironSource Ads (Unity) — <a href="https://unity.com/legal/privacy-policy" target="_blank" rel="noopener">unity.com/legal/privacy-policy</a></li>
+    <li>InMobi — <a href="https://advertising.inmobi.com/privacy-policy" target="_blank" rel="noopener">advertising.inmobi.com/privacy-policy</a></li>
+    <li>Liftoff Monetize — <a href="https://liftoff.ai/privacy-policy/" target="_blank" rel="noopener">liftoff.ai/privacy-policy</a></li>
+    <li>DT Exchange (Digital Turbine) — <a href="https://www.digitalturbine.com/legal/privacy-policy" target="_blank" rel="noopener">digitalturbine.com/legal/privacy-policy</a></li>
+    <li>Mintegral — <a href="https://www.mintegral.com/en/privacy" target="_blank" rel="noopener">mintegral.com/en/privacy</a></li>
+  </ul>
+  <p>Żadne z tych danych nie są przetwarzane wyłącznie chwilowo — dostawcy mogą je przechowywać tak długo, jak jest to potrzebne do realizacji danego celu. Zbieranie jest niezbędne dla funkcji reklamowych i stabilności Aplikacji i nie można go wyłączyć osobno w Aplikacji, jednak gracze w wieku 13 lat i starsi mogą zresetować lub usunąć identyfikator reklamowy w ustawieniach systemowych urządzenia, a gracze w regionach, w których wymagana jest zgoda, mogą zmienić swoje wybory za pomocą przycisku: przycisk „Privacy options” w menu Settings (Ustawienia) aplikacji.</p>
+
+  <h3>Zakupy w aplikacji</h3>
+  <p>Aplikacja oferuje opcjonalne zakupy w aplikacji: „Remove Ads” (usuwa banery i reklamy pełnoekranowe; opcjonalne reklamy z nagrodą pozostają dostępne, jeśli chcesz z nich korzystać); złoto w grze w trzech wielkościach — „Gold Pouch” (2 000 złota), „Gold Chest” (7 500 złota) i „Treasure Hoard” (16 000 złota); oraz „Boom Crate” (6 rakiet + 6 granatów), czyli jednorazowe wzmocnienia. Wszystkie płatności obsługuje Google Play Billing. Nigdy nie widzimy ani nie przechowujemy Twoich danych płatniczych (np. numerów kart) — Google przetwarza płatność i przekazuje Aplikacji tylko informację, jaki przedmiot został kupiony, aby mógł zostać dostarczony. Aplikacja zapisuje wynik lokalnie na urządzeniu (czy reklamy zostały usunięte, stan złota i liczba wzmocnień) oraz, jeśli korzystasz z zapisu w chmurze, w pliku zapisu (zob. Rozdział 2). Zakupy podlegają <a href="https://payments.google.com/payments/apis-secure/u/0/get_legal_document?ldo=0&amp;ldt=privacynotice" target="_blank" rel="noopener">informacji o prywatności Google Payments</a>. Rodzice mogą w ustawieniach Sklepu Google Play wymagać hasła lub innego uwierzytelnienia przy zakupach.</p>
+
+  <h3>Postępy w grze i zapis w chmurze</h3>
+  <p>Na Androidzie Aplikacja korzysta z Usług gier Google Play, abyś mógł zalogować się kontem Google i aby synchronizować Twoje postępy w grze (ukończone poziomy, gwiazdki, wzmocnienia, zakupy, ustawienia) między urządzeniami. Jeśli nie jesteś zalogowany lub jesteś offline, postępy są zapisywane lokalnie na urządzeniu przy użyciu standardowych mechanizmów zapisu. Co jest udostępniane przy logowaniu, opisuje Rozdział 2.</p>
+
+  <h3>Oceny i aktualizacje</h3>
+  <p>Aplikacja może od czasu do czasu wyświetlić wbudowane okno Google Play „oceń aplikację” oraz, gdy dostępna jest nowa wersja, okno aktualizacji w aplikacji Google Play. Oba są dostarczane i obsługiwane w całości przez Google Play. Aplikacja nie wie, czy wystawiłeś ocenę ani co napisałeś, żadne dane z tych okien nie są do nas przesyłane, a Aplikacja działa tak samo niezależnie od Twojego wyboru.</p>
+
+  <h3>Czego nie zbieramy</h3>
+  <p>Do gry nie jest wymagane zakładanie konta (logowanie Google na potrzeby zapisu w chmurze jest opcjonalne — zob. Rozdział 2). Aplikacja nie zbiera Twojego imienia i nazwiska, adresu e-mail ani innych danych bezpośrednio identyfikujących poza tym, co Usługi gier Google Play przekazują przy logowaniu, oraz poza tym, czego Google Play Billing wymaga do realizacji zakupów (czego nigdy nie widzimy bezpośrednio).</p>
+
+  <h2>2. Dane użytkownika Google</h2>
+  <p>Na Androidzie Aplikacja korzysta z <strong>logowania do Usług gier Google Play</strong>, abyś mógł zapisywać postępy w chmurze i synchronizować je między urządzeniami. Jest to opcjonalne — możesz w pełni grać bez logowania; wtedy Aplikacja nie uzyskuje dostępu do żadnych danych konta Google, a postępy są zapisywane tylko lokalnie. Jeśli się zalogujesz, poniżej opisujemy dokładnie, co się dzieje, w kategoriach, których Google wymaga przy weryfikacji API/OAuth.</p>
+  <div class="note">
+    <p style="margin:0 0 8px;"><strong>Dane, do których uzyskujemy dostęp:</strong> Twój identyfikator gracza w Grach Google Play, publiczna nazwa wyświetlana i zdjęcie profilowe, przekazywane automatycznie przez Usługi gier Google Play przy logowaniu. Nie prosimy o adres e-mail, kontakty, pliki z Dysku ani żadne inne dane Google. Aplikacja nie korzysta z tabel wyników ani osiągnięć, więc żadna aktywność w grze nie jest udostępniana w publicznym profilu.</p>
+    <p style="margin:0 0 8px;"><strong>Wykorzystanie danych:</strong> Dane te służą wyłącznie do identyfikacji Twojego pliku zapisu i synchronizacji postępów w grze (ukończone poziomy, gwiazdki, wzmocnienia, zakupy, ustawienia) między Twoimi urządzeniami za pomocą interfejsu Saved Games API Google.</p>
+    <p style="margin:0 0 8px;"><strong>Udostępnianie danych:</strong> Nie udostępniamy tych danych żadnym podmiotom trzecim, w tym naszym partnerom reklamowym. Są one wymieniane wyłącznie z Google w zakresie niezbędnym do działania logowania do Usług gier Google Play i zapisu w chmurze.</p>
+    <p style="margin:0 0 8px;"><strong>Przechowywanie i ochrona danych:</strong> Twoje dane zapisu i informacje z profilu Gier Play są przechowywane w infrastrukturze Google (Usługi gier Play / Saved Games API), a nie na naszych serwerach. Wszystkie dane są szyfrowane podczas przesyłania przy użyciu TLS.</p>
+    <p style="margin:0;"><strong>Okres przechowywania i usuwanie danych:</strong> Dane te są przechowywane tak długo, jak Twoje konto Google pozostaje połączone z Aplikacją. W każdej chwili możesz odłączyć Aplikację lub usunąć jej dane Gier Play w aplikacji Gry Google Play lub w ustawieniach konta Google (<a href="https://myaccount.google.com" target="_blank" rel="noopener">myaccount.google.com</a>). Możesz też poprosić o usunięcie danych, pisząc na adres e-mail podany w Rozdziale 11.</p>
+  </div>
+  <p>Jeśli przyszła aktualizacja doda nowe zakresy API Google (na przykład tabele wyników lub osiągnięcia), zaktualizujemy ten rozdział i, tam gdzie jest to wymagane, poprosimy o zgodę, zanim zmiana zacznie obowiązywać.</p>
+
+  <h2>3. Jak wykorzystujemy informacje i podstawy prawne</h2>
+  <p>Wszystkie opisane powyżej dane są wykorzystywane wyłącznie do wyświetlania i mierzenia reklam, do dostarczania zakupów w aplikacji, do zapisywania i synchronizacji postępów w grze oraz do wykrywania i naprawy problemów technicznych. Nie sprzedajemy Twoich danych osobowych za pieniądze. Jak dane reklamowe są traktowane w przepisach stanów USA, opisuje Rozdział 8.</p>
+  <p>Tam, gdzie ma zastosowanie RODO (użytkownicy z EOG i Wielkiej Brytanii), my i nasi partnerzy reklamowi opieramy się na następujących podstawach prawnych:</p>
+  <ul>
+    <li><strong>Zgoda</strong> (art. 6 ust. 1 lit. a RODO) — w przypadku reklam spersonalizowanych/ukierunkowanych i wszelkich nieobowiązkowych identyfikatorów śledzących. Zgoda na reklamy jest zbierana za pomocą komunikatu zgody opisanego w Rozdziale 1 i dotyczy wyłącznie graczy w wieku 13 lat i starszych. Zgodę możesz w każdej chwili wycofać (zob. Rozdział 7).</li>
+    <li><strong>Wykonanie umowy</strong> (art. 6 ust. 1 lit. b RODO) — w przypadku realizacji dokonanych przez Ciebie zakupów w aplikacji oraz w przypadku zapisu w chmurze, jeśli zdecydujesz się zalogować.</li>
+    <li><strong>Prawnie uzasadniony interes</strong> (art. 6 ust. 1 lit. f RODO) — w przypadku reklam niespersonalizowanych (kontekstowych), dzięki którym Aplikacja może być darmowa, oraz dzienników awarii i danych diagnostycznych potrzebnych do prawidłowego działania Aplikacji.</li>
+    <li><strong>Obowiązek prawny</strong> (art. 6 ust. 1 lit. c RODO) — w przypadku ekranu wieku opisanego w Rozdziale 1, który służy zgodności z ustawą COPPA i zasadami Google Play dotyczącymi rodzin. To przetwarzanie nie jest opcjonalne ani oparte na zgodzie, ponieważ w ten sposób ustalamy i stosujemy wymagane prawem, bezpieczne dla dzieci reklamy.</li>
+  </ul>
+  <p>Aplikacja nie wykorzystuje żadnych z opisanych powyżej danych do podejmowania decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu, które wywołują wobec Ciebie skutki prawne lub w podobny sposób istotnie na Ciebie wpływają. Wybór reklam może obejmować zautomatyzowane, algorytmiczne kierowanie przez naszych partnerów reklamowych, ale nie stanowi to profilowania wywołującego skutki prawne.</p>
+
+  <h2>4. Prywatność dzieci</h2>
+  <p>Searious Battles jest skierowana do mieszanej grupy odbiorców: z gry mogą korzystać zarówno dzieci poniżej 13 lat, jak i starsi gracze. Dlatego Aplikacja korzysta z neutralnego ekranu wieku (opisanego w Rozdziale 1), aby ustalić, jakie reklamy są wyświetlane danemu graczowi, zgodnie z zasadami Google Play dotyczącymi rodzin oraz amerykańską ustawą o ochronie prywatności dzieci w internecie (COPPA).</p>
+  <ul>
+    <li><strong>Jeśli masz mniej niż 13 lat</strong> (lub nie udało się ustalić wieku): Aplikacja oznacza każde zapytanie o reklamę jako skierowane do dzieci i ogranicza reklamy do treści przeznaczonych dla wszystkich odbiorców (G). Wyłącza to reklamy spersonalizowane, remarketing i reklamy oparte na zainteresowaniach oraz uniemożliwia wykorzystanie identyfikatora reklamowego urządzenia do celów reklamowych. Sygnał ten jest ustawiany za pomocą pakietu Google Mobile Ads SDK (AdMob), który przekazuje go każdej sieci reklamowej w mediacji. Sesje dzieci korzystają wyłącznie z jednostek reklamowych, w których aukcjach biorą udział sieci reklamowe z samocertyfikacją programu Google Play dla rodzin (Google AdMob, Unity Ads, ironSource, InMobi, Liftoff Monetize i DT Exchange); Mintegral, który nie ma samocertyfikacji, nigdy nie otrzymuje zapytań o reklamy z sesji dzieci.</li>
+    <li><strong>Jeśli masz 13 lat lub więcej</strong>: mogą być wyświetlane standardowe reklamy (nieskierowane do dzieci), zgodnie z opisem w Rozdziale 1.</li>
+  </ul>
+  <p>Nie zbieramy świadomie danych osobowych dzieci poniżej 13 lat poza minimalnymi, nieidentyfikującymi danymi opisanymi w Rozdziale 1 (identyfikatory urządzenia/reklamowe nigdy nie są zbierane w sesjach dzieci; dane diagnostyczne i dzienniki awarii nie są danymi osobowymi ani nie identyfikują bezpośrednio). Zakupy w aplikacji zawsze odbywają się przez Google Play, gdzie rodzice mogą wymagać uwierzytelnienia przy każdym zakupie. Jeśli jesteś rodzicem lub opiekunem i uważasz, że Twoje dziecko przekazało nam dane osobowe wykraczające poza to, co opisano powyżej, skontaktuj się z nami, korzystając z danych w Rozdziale 11, a usuniemy je.</p>
+
+  <h2>5. Okres przechowywania danych</h2>
+  <p>Nie prowadzimy na własnych serwerach żadnego profilu danych osobowych użytkownika — dane powiązane z kontem (profil Gier Play i zapis w chmurze) znajdują się w infrastrukturze Google, zgodnie z opisem w Rozdziale 2, a dane o zakupach — w Google Play Billing. Jedyne przechowywane dane związane z ekranem wieku to dwa znaczniki prawda/fałsz zapisane lokalnie na urządzeniu (czy ekran został ukończony i czy sesja jest traktowana jak sesja dziecka); sama data urodzenia jest odrzucana natychmiast po obliczeniu i nigdy nigdzie nie jest przesyłana. Twoje wybory dotyczące zgody na reklamy (jeśli dotyczy), Twoje zakupy (czy reklamy zostały usunięte, stan złota i liczba wzmocnień) oraz Twoje postępy w grze są również przechowywane lokalnie na urządzeniu. Identyfikatory reklamowe, dane o interakcjach z aplikacją i dane diagnostyczne są przechowywane przez naszych partnerów reklamowych wymienionych w Rozdziale 1 zgodnie z ich własnymi zasadami przechowywania. Dane zapisane lokalnie na urządzeniu, w tym znaczniki ekranu wieku i wybory dotyczące zgody, możesz w każdej chwili usunąć, odinstalowując Aplikację lub czyszcząc jej dane w ustawieniach urządzenia — przy następnym uruchomieniu ponownie pojawi się ekran wieku. Zakupy są przypisane przez Google do Twojego konta Google Play i Google Play może je przywrócić po ponownej instalacji.</p>
+
+  <h2>6. Bezpieczeństwo danych</h2>
+  <p>Wszystkie dane zbierane przez Aplikację i pakiety SDK podmiotów trzecich są szyfrowane podczas przesyłania przy użyciu standardowych protokołów (TLS). Podejmujemy rozsądne działania, aby chronić Aplikację i ograniczone dane, które przetwarza, jednak żadna metoda elektronicznego przetwarzania ani przechowywania nie jest w 100% bezpieczna i nie możemy zagwarantować absolutnego bezpieczeństwa.</p>
+
+  <h2>7. Twoje prawa (EOG, Wielka Brytania i inne regiony)</h2>
+  <p>Jeśli przebywasz w Europejskim Obszarze Gospodarczym, Wielkiej Brytanii lub innym regionie o podobnych przepisach o ochronie danych, przysługują Ci następujące prawa dotyczące Twoich danych osobowych:</p>
+  <ul>
+    <li><strong>Dostęp</strong> — możesz zażądać kopii danych, które my (lub nasze podmioty przetwarzające) posiadamy na Twój temat.</li>
+    <li><strong>Sprostowanie</strong> — możesz zażądać poprawienia nieprawidłowych danych.</li>
+    <li><strong>Usunięcie</strong> — możesz zażądać usunięcia swoich danych („prawo do bycia zapomnianym”).</li>
+    <li><strong>Ograniczenie</strong> — możesz zażądać ograniczenia przetwarzania swoich danych.</li>
+    <li><strong>Sprzeciw</strong> — możesz wnieść sprzeciw wobec przetwarzania opartego na prawnie uzasadnionym interesie, w tym przetwarzania związanego z reklamami.</li>
+    <li><strong>Przenoszenie danych</strong> — możesz zażądać swoich danych w formacie umożliwiającym ich przeniesienie, o ile jest to technicznie wykonalne.</li>
+    <li><strong>Wycofanie zgody</strong> — jeśli przetwarzanie opiera się na zgodzie (np. reklamy spersonalizowane), możesz ją w każdej chwili wycofać, bez wpływu na zgodność z prawem przetwarzania dokonanego przed jej wycofaniem: zmień swoje wybory dotyczące reklam za pomocą przycisku: przycisk „Privacy options” w menu Settings (Ustawienia) aplikacji i/lub zresetuj lub usuń identyfikator reklamowy urządzenia.</li>
+  </ul>
+  <h3>Jak złożyć wniosek</h3>
+  <p>Napisz do nas na adres e-mail podany w Rozdziale 11 i wskaż, z którego prawa chcesz skorzystać. Odpowiemy w ciągu jednego miesiąca od otrzymania wniosku; jeśli wniosek jest szczególnie złożony, możemy przedłużyć ten termin o maksymalnie dwa kolejne miesiące i poinformujemy Cię o przyczynie. Wnioski są bezpłatne. Ponieważ nie prowadzimy kont użytkowników, możemy poprosić o identyfikator reklamowy Twojego urządzenia (widoczny w ustawieniach Google lub ustawieniach reklam urządzenia), aby wraz z partnerami reklamowymi odnaleźć dane powiązane z Twoim urządzeniem — wykorzystamy go wyłącznie do obsługi Twojego wniosku.</p>
+  <p>Ponieważ większość danych reklamowych i diagnostycznych zbierają bezpośrednio nasi partnerzy reklamowi, a dane o zakupach obsługuje bezpośrednio Google Play Billing, wnioski dotyczące tych danych możesz też kierować bezpośrednio do nich za pomocą ich narzędzi prywatności (linki w Rozdziale 1), a my w miarę możliwości pomożemy je przekazać.</p>
+  <p>Masz również prawo wnieść skargę do organu nadzorczego ds. ochrony danych. W Polsce jest nim Prezes Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, <a href="https://uodo.gov.pl" target="_blank" rel="noopener">uodo.gov.pl</a>. Jeśli przebywasz w innym kraju EOG lub w Wielkiej Brytanii, możesz zamiast tego skontaktować się z lokalnym organem nadzorczym.</p>
+
+  <h2>8. Prawa dotyczące prywatności w stanach USA</h2>
+  <p>Jeśli mieszkasz w stanie USA, w którym obowiązuje ustawa o prywatności konsumentów (np. Kalifornia, Kolorado, Connecticut, Wirginia, Teksas lub inne), ten rozdział dotyczy Cię dodatkowo, oprócz pozostałej części polityki.</p>
+  <ul>
+    <li><strong>Co zbieramy i dlaczego:</strong> kategorie danych, ich źródła (Twoje urządzenie i Aplikacja) oraz cele są opisane w Rozdziałach 1 i 3. Nie zbieramy danych wrażliwych w rozumieniu tych przepisów (Twoja data urodzenia nigdy nie opuszcza urządzenia).</li>
+    <li><strong>Sprzedaż i udostępnianie:</strong> nie sprzedajemy danych osobowych za pieniądze. Jednak w przypadku graczy w wieku 13 lat i starszych nasi partnerzy reklamowi mogą wykorzystywać identyfikatory urządzenia, dane o interakcjach z aplikacją i przybliżoną lokalizację do wyświetlania reklam spersonalizowanych, co niektóre przepisy stanowe traktują jako „udostępnianie” (sharing) na potrzeby reklamy behawioralnej lub jako „reklamę ukierunkowaną” (targeted advertising). Nigdy nie robimy tego w przypadku graczy poniżej 13 lat (zob. Rozdział 4) i świadomie nie sprzedajemy ani nie udostępniamy danych osobowych osób poniżej 16 lat.</li>
+    <li><strong>Jak zrezygnować:</strong> użyj przycisku: przycisk „Privacy options” w menu Settings (Ustawienia) aplikacji (jeśli jest widoczny) i/lub zresetuj lub usuń identyfikator reklamowy albo włącz opcję rezygnacji z personalizacji reklam w ustawieniach urządzenia. Uwzględniamy również prośby o rezygnację wysłane e-mailem na adres podany w Rozdziale 11.</li>
+    <li><strong>Twoje prawa:</strong> w zależności od stanu możesz zażądać informacji o zebranych na Twój temat danych osobowych lub dostępu do nich, ich poprawienia lub usunięcia, a także zrezygnować z ich sprzedaży, udostępniania lub reklamy ukierunkowanej. Wniosek może złożyć w Twoim imieniu upoważniony pełnomocnik. Aby złożyć wniosek, napisz do nas na adres podany w Rozdziale 11; możemy poprosić o identyfikator reklamowy urządzenia, aby zweryfikować i zrealizować wniosek. Jeśli odmówimy realizacji wniosku, możesz się odwołać, odpowiadając na naszą wiadomość. Nie będziemy Cię dyskryminować za korzystanie z tych praw.</li>
+  </ul>
+
+  <h2>9. Przekazywanie danych poza EOG</h2>
+  <p>Piegeon ma siedzibę w Polsce (UE). Google oraz nasi partnerzy reklamowi i diagnostyczni (Unity/ironSource, InMobi, Liftoff, Digital Turbine i Mintegral) mogą przetwarzać dane w krajach spoza EOG, w tym w Stanach Zjednoczonych, Indiach (InMobi) i Chinach (Mintegral). Gdy dane są przekazywane poza EOG lub Wielką Brytanię, partnerzy ci chronią je za pomocą zabezpieczeń uznanych przez RODO — standardowych klauzul umownych Komisji Europejskiej oraz, w przypadku certyfikowanych firm z USA, programu EU–U.S. Data Privacy Framework — zgodnie z opisem w ich własnych politykach prywatności (linki w Rozdziale 1). Więcej informacji o tych zabezpieczeniach możesz uzyskać, kontaktując się z nami (dane w Rozdziale 11).</p>
+
+  <h2>10. Zmiany w polityce</h2>
+  <p>Możemy od czasu do czasu aktualizować niniejszą Politykę prywatności, na przykład gdy zmieniają się funkcje Aplikacji. Zaktualizujemy wtedy datę „Ostatnia aktualizacja” powyżej, a o istotnych zmianach poinformujemy również w Aplikacji lub na jej stronie w Google Play. Jeśli przyszła zmiana sprawi, że Aplikacja zacznie uzyskiwać dostęp do nowych lub dodatkowych danych użytkownika Google lub zakresów wykraczających poza opisane w Rozdziale 2, odpowiednio zaktualizujemy Rozdział 2 i, tam gdzie jest to wymagane, poprosimy użytkowników o zgodę, zanim zmiana zacznie obowiązywać.</p>
+
+  <h2>11. Kontakt</h2>
+  <p>Jeśli masz pytania dotyczące niniejszej Polityki prywatności, chcesz skorzystać ze swoich praw lub zgłosić zastrzeżenia dotyczące sposobu, w jaki Aplikacja przetwarza dane, skontaktuj się z nami:</p>
+  <p><strong>E-mail:</strong> <a href="mailto:diddyklein69@gmail.com">diddyklein69@gmail.com</a></p>
+
+  <footer>
+    Searious Battles jest tworzona przez Piegeon. Niniejsza polityka dotyczy wyłącznie aplikacji Searious Battles. Oficjalne są wersje angielska i polska.
+  </footer>
+
+  </div>
+
 </div>
+
+<script>
+(function () {
+  var ui = {
+    en: { title: "Searious Battles — Privacy Policy", updated: "Last updated: November 4, 2026", other: "Other languages…", hint: "Other languages open an automatic Google translation, for convenience only. The English and Polish versions are the official ones." },
+    pl: { title: "Searious Battles — Polityka prywatności", updated: "Ostatnia aktualizacja: 4 listopada 2026 r.", other: "Inne języki…", hint: "Inne języki otwierają automatyczne tłumaczenie Google, wyłącznie pomocniczo. Oficjalne są wersje angielska i polska." }
+  };
+  var buttons = document.querySelectorAll(".lang-btn");
+  var blocks = document.querySelectorAll("[data-lang]");
+  var select = document.getElementById("otherLang");
+
+  function setLang(lang) {
+    if (!ui[lang]) lang = "en";
+    blocks.forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-lang") === lang); });
+    buttons.forEach(function (btn) { btn.setAttribute("aria-pressed", btn.getAttribute("data-set") === lang ? "true" : "false"); });
+    document.documentElement.lang = lang;
+    document.getElementById("title").textContent = ui[lang].title;
+    document.getElementById("updated").textContent = ui[lang].updated;
+    document.getElementById("langHint").textContent = ui[lang].hint;
+    select.options[0].textContent = ui[lang].other;
+    document.title = ui[lang].title;
+    try {
+      if (location.protocol.indexOf("http") === 0 && history.replaceState) {
+        history.replaceState(null, "", lang === "pl" ? "#pl" : location.pathname + location.search);
+      }
+    } catch (e) { /* preview/sandbox: URL update not allowed, switching still works */ }
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () { setLang(btn.getAttribute("data-set")); });
+  });
+
+  select.addEventListener("change", function () {
+    var tl = select.value;
+    if (!tl) return;
+    var url = "https://translate.google.com/translate?sl=en&tl=" + encodeURIComponent(tl) +
+              "&u=" + encodeURIComponent("https://piegeon.de/SeariousBattlesPrivacyPolicy");
+    window.open(url, "_blank", "noopener");
+    select.value = "";
+  });
+
+  var start = "en";
+  if (location.hash === "#pl") start = "pl";
+  else if (!location.hash && (navigator.language || "").toLowerCase().indexOf("pl") === 0) start = "pl";
+  setLang(start);
+})();
+</script>
 </body>
 </html>
